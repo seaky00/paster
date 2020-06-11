@@ -1,7 +1,6 @@
 package pw.seaky.paster.scheduler;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -17,22 +16,16 @@ import java.util.logging.Logger;
 @Component
 public class PasteScheduler {
 
-
-
-
     @Autowired
     private PasteService pasteService;
 
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    @Autowired
-    CacheManager cache;
-
-    @Scheduled(fixedRate = 1200000)
+    @Scheduled(fixedRate = 120000)
     public void onSchedule() throws ParseException {
         Logger.getAnonymousLogger().info("Checking for pastes to remove...");
-        ;
+
         pasteService.getPasteList().addAll(mongoTemplate.findAll(Paste.class, "pastes"));
         for (Paste paste : pasteService.getPasteList()) {
             if (paste.getOption() != ExpiryOption.NEVER) {
@@ -43,14 +36,10 @@ public class PasteScheduler {
                     Logger.getAnonymousLogger().info("Removed " + paste.getId());
                 }
             }
-
-
-
         }
     }
 
     private boolean calc(LocalDateTime createdDate, ExpiryOption option) throws ParseException {
-
         LocalDateTime calculatedDate = createdDate.plus(Period.ofDays(option.getDays()));
         return calculatedDate.isBefore(LocalDateTime.now());
     }

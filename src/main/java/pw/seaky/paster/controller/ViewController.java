@@ -15,14 +15,11 @@ public class ViewController {
 
     private final PasteService textService;
 
-
     @Autowired
     public ViewController(PasteService textService) {
         this.textService = textService;
 
     }
-
-
     @GetMapping(path = "/")
     public String getHomePage() {
         return "redirect:/home";
@@ -39,7 +36,6 @@ public class ViewController {
         return "paste";
     }
 
-
     @GetMapping(path = "/pastes")
     public String getPaste() {
         return "redirect:/pastes/404";
@@ -49,7 +45,6 @@ public class ViewController {
     public String getPaste(@PathVariable("id") String id, Model model) {
         if (textService.getDao().getPaste(id).isPresent()) {
             Paste text = textService.getDao().getPaste(id).get();
-
             model.addAttribute("id", text.getId());
             model.addAttribute("title", text.getTitle());
             model.addAttribute("body", text.getBody());

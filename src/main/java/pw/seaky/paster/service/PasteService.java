@@ -19,10 +19,11 @@ public class PasteService {
 
     private final PasteDao dao;
 
-    private List<Paste> pasteList = new ArrayList<>();
+    private final List<Paste> pasteList = new ArrayList<>();
     @Autowired
     public PasteService(@Qualifier("mongodas") PasteDao dao) {
         this.dao = dao;
+        genPastes();
     }
 
     public PasteDao getDao() {
@@ -53,7 +54,6 @@ public class PasteService {
 
 
     private void genPastes() {
-
         Paste not_found = new Paste();
         not_found.setUnsplit("The page you were looking for does not exist (anymore)");
         not_found.setId("404");
