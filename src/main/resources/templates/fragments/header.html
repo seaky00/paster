@@ -4,11 +4,15 @@
 <head>
 </head>
 <body>
+
 <div th:fragment="header">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="/home">Paster</a>
+
+        <div th:if="${cookie}">
+            <a class="navbar-link" href="/recent">Recent pastes</a>
+        </div>
     </nav>
 </div>
 </body>
-</html>
 </html>

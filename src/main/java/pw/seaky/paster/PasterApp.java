@@ -11,7 +11,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class PasterApp extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-
         SpringApplication.run(PasterApp.class, args);
 
 

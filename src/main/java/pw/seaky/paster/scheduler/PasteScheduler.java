@@ -16,31 +16,33 @@ import java.util.logging.Logger;
 @Component
 public class PasteScheduler {
 
-    @Autowired
-    private PasteService pasteService;
+  @Autowired
+  private PasteService pasteService;
 
-    @Autowired
-    private MongoTemplate mongoTemplate;
+  @Autowired
+  private MongoTemplate mongoTemplate;
 
-    @Scheduled(fixedRate = 120000)
-    public void onSchedule() throws ParseException {
-        Logger.getAnonymousLogger().info("Checking for pastes to remove...");
 
-        pasteService.getPasteList().addAll(mongoTemplate.findAll(Paste.class, "pastes"));
-        for (Paste paste : pasteService.getPasteList()) {
-            if (paste.getOption() != ExpiryOption.NEVER) {
-                String created = paste.getCreated();
-                LocalDateTime createdDateTime = LocalDateTime.parse(created);
-                if (calc(createdDateTime, paste.getOption())) {
-                    pasteService.deletePaste(paste.getId());
-                    Logger.getAnonymousLogger().info("Removed " + paste.getId());
-                }
-            }
+  @Scheduled(fixedRate = 120000)
+  public void onSchedule() throws ParseException {
+    Logger.getAnonymousLogger().info("Checking for pastes to remove...");
+    pasteService.getPasteList().addAll(mongoTemplate.findAll(Paste.class, "pastes"));
+    for (Paste paste : pasteService.getPasteList()) {
+      if (paste.getOption() != ExpiryOption.NEVER) {
+        String created = paste.getCreated();
+        LocalDateTime createdDateTime = LocalDateTime.parse(created);
+        if (calc(createdDateTime, paste.getOption())) {
+          pasteService.deletePaste(paste.getId());
+          Logger.getAnonymousLogger().info("Removed " + paste.getId());
         }
+      }
     }
+  }
 
-    private boolean calc(LocalDateTime createdDate, ExpiryOption option) throws ParseException {
-        LocalDateTime calculatedDate = createdDate.plus(Period.ofDays(option.getDays()));
-        return calculatedDate.isBefore(LocalDateTime.now());
-    }
+  private boolean calc(LocalDateTime createdDate, ExpiryOption option) throws ParseException {
+    LocalDateTime calculatedDate = createdDate.plus(Period.ofDays(option.getDays()));
+    return calculatedDate.isBefore(LocalDateTime.now());
+  }
+
+
 }

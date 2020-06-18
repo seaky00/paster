@@ -28,6 +28,12 @@ public class MongoDAS implements PasteDao {
     }
 
     @Override
+    public Boolean exists(String id) {
+        Query query = new Query(Criteria.where("_id").is(id));
+        return mongoTemplate.exists(query, Paste.class);
+    }
+
+    @Override
     public Paste addPaste(Paste paste) {
 
         return mongoTemplate.save(paste);

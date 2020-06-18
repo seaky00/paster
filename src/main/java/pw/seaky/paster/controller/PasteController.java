@@ -10,6 +10,9 @@ import pw.seaky.paster.exception.PasteNotFoundException;
 import pw.seaky.paster.model.Paste;
 import pw.seaky.paster.service.PasteService;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 @RequestMapping("/api")
 @Controller
 public class PasteController {
@@ -22,11 +25,14 @@ public class PasteController {
     }
 
     @PostMapping(path = "/post")
-
-    public String addPost(Paste text, BindingResult result) {
-        if (!result.hasFieldErrors() && !text.getTitle().isEmpty()) {
-
+    public String addPost(HttpServletResponse response, Paste text, BindingResult result) {
+        if (!result.hasFieldErrors() && !text.getTitle().isEmpty() && !text.getUnsplit().isEmpty()) {
             textService.addPaste(text);
+            Cookie cookie = new Cookie(text.getId(), "paste");
+            int expires = 60 * 60 * 24 * text.getOption().getDays();
+            cookie.setPath("/");
+            cookie.setMaxAge(expires);
+            response.addCookie(cookie);
             return "redirect:/pastes/" + text.getId();
         }
         return "paste";

@@ -14,21 +14,16 @@
 
 
 <div class="container">
-    <div class="content" style="padding: 20px;">
-        <div th:each="alert : ${list}">
-            <div style="text-align: center;" th:classappend="${alert.getType().getHtmlclass()}"
-                 th:text="${alert.message}"></div>
-        </div>
-    </div>
+    <div class="content">
         <div class="jumbotron" style="">
-            <div class="container">
-                <h1 class="display-4">Paster</h1>
-                <p class="lead">A simple, anonymous text hosting site.</p>
-                <hr/>
-                <p>No personal information is saved.</p>
-                <a class="btn btn-primary btn-lg" href="/paste" role="button">Upload paste</a>
-            </div>
+            <h1 class="display-4">Paster</h1>
+            <p class="lead">A simple, anonymous text hosting site.</p>
+            <hr/>
+            <p>No personal information is saved.</p>
+            <a class="btn btn-primary btn-lg" href="/paste" role="button">Upload paste</a>
         </div>
     </div>
+</div>
+</div>
 </body>
 </html>

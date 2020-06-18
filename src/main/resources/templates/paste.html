@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head lang="en">
@@ -7,30 +8,33 @@
 </head>
 <body>
 
-<div th:replace="fragments/header.html :: header"/>
+<div th:replace="fragments/header.html :: header"></div>
 
 <div class="container">
-
-
-    <div class="content" style="padding:20px;">
-        <form action="#" class="form-control" method="post" th:action="@{/api/post}" th:object="${paste}">
-            <div class="form-group">
-                <label for="title">Title</label>
-                <input class="form-control" id="title" name="title" th:field="${paste.title}" type="text">
+    <div class="content">
+        <div class="card">
+            <div class="card-body">
+                <form action="#" method="post" th:action="@{/api/post}" th:object="${paste}">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input class="form-control" id="title" name="title" th:field="${paste.title}" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="text">Text</label>
+                        <textarea class="form-control" id="text" name="text" rows="5"
+                                  th:field=${paste.unsplit}></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Expires in</label>
+                        <select class="form-control" id="option" name="option" th.field="*{paste.option}">
+                            <option th:each="pasteoption : ${T(pw.seaky.paster.utils.ExpiryOption).values()}"
+                                    th:text="${pasteoption.value}" th:value="${pasteoption}"></option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary mb-2" type="submit">Submit Paste</button>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="text">Text</label>
-                <textarea class="form-control" id="text" name="text" rows="5" th:field=${paste.unsplit}></textarea>
-            </div>
-            <div class="form-group">
-                <label>Expires in</label>
-                <select class="form-control" id="option" name="option" th.field="*{paste.option}">
-                    <option th:each="pasteoption : ${T(pw.seaky.paster.utils.ExpiryOption).values()}"
-                            th:text="${pasteoption.value}" th:value="${pasteoption}"></option>
-                </select>
-            </div>
-            <button class="btn btn-primary mb-2" type="submit">Submit Paste</button>
-        </form>
+        </div>
     </div>
 </div>
 </body>

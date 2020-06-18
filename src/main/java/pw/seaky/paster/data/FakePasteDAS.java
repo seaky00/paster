@@ -14,10 +14,14 @@ public class FakePasteDAS implements PasteDao {
     private final static List<Paste> list = new ArrayList<>();
 
 
-
     @Override
     public String daoName() {
         return "Fake DAS";
+    }
+
+    @Override
+    public Boolean exists(String id) {
+        return null;
     }
 
     @Override

@@ -2,16 +2,17 @@ package pw.seaky.paster.model;
 
 
 import net.bytebuddy.utility.RandomString;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pw.seaky.paster.utils.ExpiryOption;
 import pw.seaky.paster.utils.PasteUtils;
 
+import java.io.Serializable;
+
 
 @Document(collection = "pastes")
-public class Paste {
+public class Paste implements Serializable {
 
-    @Id
+
     private String id;
     private String title;
     private String created;

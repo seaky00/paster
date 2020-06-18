@@ -12,6 +12,8 @@ public interface PasteDao {
     @Bean
     String daoName();
 
+    Boolean exists(String id);
+
     Paste addPaste(Paste paste);
 
     Optional<Paste> getPaste(String id);
