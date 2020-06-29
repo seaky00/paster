@@ -21,7 +21,7 @@ public class FakePasteDAS implements PasteDao {
 
     @Override
     public Boolean exists(String id) {
-        return null;
+        return this.getPaste(id).isPresent();
     }
 
     @Override

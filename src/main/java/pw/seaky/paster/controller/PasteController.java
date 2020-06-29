@@ -26,7 +26,7 @@ public class PasteController {
 
     @PostMapping(path = "/post")
     public String addPost(HttpServletResponse response, Paste text, BindingResult result) {
-        if (!result.hasFieldErrors() && !text.getTitle().isEmpty() && !text.getUnsplit().isEmpty()) {
+        if (!result.hasFieldErrors() && !text.getTitle().isEmpty() && !text.getRaw().isEmpty()) {
             textService.addPaste(text);
             Cookie cookie = new Cookie(text.getId(), "paste");
             int expires = 60 * 60 * 24 * text.getOption().getDays();
@@ -48,14 +48,6 @@ public class PasteController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Paste not found!", e);
         }
     }
-
-    /*
-    @ResponseBody
-    @GetMapping("/all")
-    public List<Paste> getAll() {
-        return textService.getDao().getPastes();
-    }
-    */
 
 
 }

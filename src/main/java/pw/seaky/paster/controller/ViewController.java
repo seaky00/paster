@@ -51,7 +51,7 @@ public class ViewController {
 
   @GetMapping(path = "/pastes")
   public String getPaste() {
-    return "redirect:/pastes/404";
+    return "redirect:/home";
   }
 
   @GetMapping(path = "/pastes/{id}")
@@ -64,7 +64,7 @@ public class ViewController {
       model.addAttribute("date", text.getCreated());
       return "result";
     } else {
-      return "redirect:/pastes/404";
+      return "redirect:/404.html";
     }
   }
 

@@ -17,7 +17,7 @@ public class Paste implements Serializable {
     private String title;
     private String created;
     private String[] body;
-    private String unsplit;
+    private String raw;
 
     private ExpiryOption option;
 
@@ -42,8 +42,8 @@ public class Paste implements Serializable {
         return id;
     }
 
-    public String getUnsplit() {
-        return unsplit;
+    public String getRaw() {
+        return raw;
     }
 
     public String getCreated() {
@@ -67,8 +67,8 @@ public class Paste implements Serializable {
     }
 
 
-    public void setUnsplit(String unsplit) {
-        this.unsplit = unsplit;
+    public void setRaw(String unsplit) {
+        this.raw = unsplit;
     }
 
 

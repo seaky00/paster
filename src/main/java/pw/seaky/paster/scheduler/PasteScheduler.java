@@ -39,7 +39,7 @@ public class PasteScheduler {
     }
   }
 
-  private boolean calc(LocalDateTime createdDate, ExpiryOption option) throws ParseException {
+  private boolean calc(LocalDateTime createdDate, ExpiryOption option) {
     LocalDateTime calculatedDate = createdDate.plus(Period.ofDays(option.getDays()));
     return calculatedDate.isBefore(LocalDateTime.now());
   }

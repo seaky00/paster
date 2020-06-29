@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <div th:each="entry, status: ${body}">
                         <div class="card-text" style="white-space: pre;"
-                             th:text="${status.index} + '  ' + ${entry}"></div>
+                             th:text="${status.count} + '  ' + ${entry}"></div>
                     </div>
                 </div>
             </div>
