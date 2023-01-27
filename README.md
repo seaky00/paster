@@ -1,6 +1,6 @@
   # Paster
 
-  This project was purely made to practice spring boot and thymeleaf by building a text hosting service. (similar to pastebin)
+  I created this project to learn spring boot. The project is a simple text sharing application, similar to pastebin. 
   
   Technologies used: **Spring Boot**, **Thymeleaf**, **Redis** and **MongoDB**.
   
